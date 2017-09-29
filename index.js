@@ -11,7 +11,8 @@ class ExtractTextPluginCSS extends ExtractTextPlugin {
 
     this.commonChunkPrefix = 'etpcss_chunk_';
 
-    this.filenameChunk = params.filenameChunk || 'common-[index].css'
+    this.filenameChunk = params.filenameChunk || 'common-[index].css';
+    this.processOutput = params.processOutput;
   }
   
   apply(compiler) {
@@ -51,6 +52,9 @@ class ExtractTextPluginCSS extends ExtractTextPlugin {
       });
 
       compilation.plugin("additional-assets", callback => {
+        var entryChunks = [];
+        var commonChunks = [];
+        
         _extractedChunks.forEach(chunk => {
           if(!chunk.modules.length) return;
 
@@ -58,17 +62,22 @@ class ExtractTextPluginCSS extends ExtractTextPlugin {
           var filename;
 
           if (chunk.name.includes(this.commonChunkPrefix)) {
+            commonChunks.push(chunk);
             filename = this._getChunkPath(compilation, chunk);
           } else {
+            entryChunks.push(chunk);
             filename = compilation.getPath(this.filename, {
               chunk: chunk
             });
           }
 
           compilation.assets[filename] = source;
-          // debugger;
           chunk.files.push(filename);
         });
+
+        if (this.processOutput && typeof this.processOutput === 'function') {
+          this.processOutput(entryChunks, commonChunks);
+        }
 
         callback();
       });
