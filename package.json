@@ -1,0 +1,24 @@
+{
+  "name": "msnt-extract-css-webpack-plugin",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/esjs/msnt-extract-css-webpack-plugin.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/esjs/msnt-extract-css-webpack-plugin/issues"
+  },
+  "homepage": "https://github.com/esjs/msnt-extract-css-webpack-plugin#readme",
+  "devDependencies": {
+    "extract-text-webpack-plugin": "^3.0.0",
+    "webpack": "^3.6.0"
+  }
+}
