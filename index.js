@@ -2,7 +2,7 @@ const path = require('path');
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const Chunk = require("webpack/lib/Chunk");
-const ExtractedModule = require("extract-text-webpack-plugin/ExtractedModule");
+const ExtractedModule = require("extract-text-webpack-plugin/dist/lib/ExtractedModule");
 const SortableSet = require("webpack/lib/util/SortableSet");
 
 class ExtractTextPluginCSS extends ExtractTextPlugin {
@@ -193,7 +193,7 @@ class ExtractTextPluginCSS extends ExtractTextPlugin {
         debugger;
         
         // TODO: additionalInformation
-        var newModule = new ExtractedModule(commonChunkId, mod, mod.source().source());
+        var newModule = new ExtractedModule.default(commonChunkId, mod, mod.source().source());
 
         // add extracted module to corresponding common chunk
         commonChunks[commonChunkId].addModule(newModule);
@@ -205,7 +205,7 @@ class ExtractTextPluginCSS extends ExtractTextPlugin {
         // which is missing in Sets
         var modulesArray = Array.from(chunk.modules);
         requiredCommonChunks.reverse().forEach(commonChunkId => {
-          var module = new ExtractedModule(`css-import-module-${commonChunkId}`, null, `@import "${this._getChunkPath(compilation, commonChunks[commonChunkId], true)}";\n`);
+          var module = new ExtractedModule.default(`css-import-module-${commonChunkId}`, null, `@import "${this._getChunkPath(compilation, commonChunks[commonChunkId], true)}";\n`);
 
           modulesArray.unshift(module);
         });
